@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import CardList from './components/card-list/card-list.component';
@@ -8,6 +8,7 @@ const App = () => {
 
   const [monsters, setMonsters] = useState([])
   const [searchText, setSearchText] = useState("");
+  const [filteredMonster, setFilteredMonster] = useState(monsters)
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
@@ -15,18 +16,18 @@ const App = () => {
       .then(users => setMonsters(users))
   }, [])
 
+  useEffect(() => {
+    const newFilteredMonster = monsters.filter((monster) => {
+      return monster.name.toLowerCase().includes(searchText)
+    });
+    setFilteredMonster(newFilteredMonster);
+
+  }, [monsters, searchText]);
 
   const handleChange = (e) => {
     const searchField = e.target.value.toLowerCase();
     setSearchText(searchField)
   }
-  {/* //using filter array method to filter out monsters based on the searchText */ }
-
-  const filteredMonster = monsters.filter((monster) => monster.name.toLowerCase().includes(searchText))
-
-  // const filteredMonster = monsters.filter((monster) => monster.name.toLowerCase().includes(searchText.toLowerCase())
-
-
 
 
 
