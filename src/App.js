@@ -13,7 +13,7 @@ const App = () => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then(response => response.json())
       .then(users => setMonsters(users))
-  }, [monsters, searchText])
+  }, [])
 
 
   const handleChange = (e) => {
